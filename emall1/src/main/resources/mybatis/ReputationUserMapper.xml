@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.web.emall.mappers.ReputaionUserMapper">
+    <resultMap id="BaseResultMap" type="org.web.emall.models.ReputationUser">
+        <association property="goods" select="org.web.emall.mappers.ReputationMapper.selectReputationByFoodId"
+                     javaType="org.web.emall.models.Reputation" column="goods_id"/>
+        <association property="user" resultMap="org.web.emall.mappers.UserMapper.Base"
+                     javaType="org.web.emall.models.User" column="uid"/>
+    </resultMap>
+
+    <select id="selectReputationWithUserByFoodId" resultMap="BaseResultMap" parameterType="int">
+        SELECT
+          f.`min_price` amount,
+          f.`pic` pic,
+          f.`name` goods_name,
+          r.*,
+          u.avatar_url,
+          u.`city`,
+          u.`date_add`,
+          u.`date_login`,
+          u.`ip_add`,
+          u.`ip_login`,
+          u.`is_idcard_check`,
+          u.`mobile`,
+          u.`nick`,
+          u.`province`,
+          u.`source`,
+          u.`source_str`,
+          u.`status`,
+          u.`status_str`
+        FROM
+          reputation r
+        JOIN Food f
+         ON r.`goods_id` = f.`id`
+         AND r.`goods_id` = #{goods_id}
+        JOIN `user` u
+         ON u.id = r.`uid`
+  </select>
+
+</mapper>

@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.web.emall.mappers.CouponsMapper">
+  <resultMap id="BaseResultMap" type="org.web.emall.models.Coupons">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="date_end_days" jdbcType="INTEGER" property="dateEndDays" />
+    <result column="date_end_type" jdbcType="INTEGER" property="dateEndType" />
+    <result column="date_start_type" jdbcType="INTEGER" property="dateStartType" />
+    <result column="money_hreshold" jdbcType="INTEGER" property="moneyHreshold" />
+    <result column="money_max" jdbcType="DOUBLE" property="moneyMax" />
+    <result column="money_min" jdbcType="DOUBLE" property="moneyMin" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="needScore" jdbcType="INTEGER" property="needscore" />
+    <result column="number_git_number" jdbcType="INTEGER" property="numberGitNumber" />
+    <result column="number_git" jdbcType="INTEGER" property="numberGit" />
+    <result column="number_left" jdbcType="INTEGER" property="numberLeft" />
+    <result column="number_person_max" jdbcType="INTEGER" property="numberPersonMax" />
+    <result column="number_total" jdbcType="INTEGER" property="numberTotal" />
+    <result column="number_used" jdbcType="INTEGER" property="numberUsed" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="status_str" jdbcType="VARCHAR" property="statusStr" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="date_add" jdbcType="TIMESTAMP" property="dateAdd" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, date_end_days, date_end_type, date_start_type, money_hreshold, money_max, money_min, 
+    name, needScore, number_git_number, number_git, number_left, number_person_max, number_total, 
+    number_used, status, status_str, type, date_add
+  </sql>
+  <select id="selectByExample" parameterType="org.web.emall.models.CouponsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from coupons
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from coupons
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from coupons
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.web.emall.models.CouponsExample">
+    delete from coupons
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.web.emall.models.Coupons">
+    insert into coupons (id, date_end_days, date_end_type, 
+      date_start_type, money_hreshold, money_max, 
+      money_min, name, needScore, 
+      number_git_number, number_git, number_left, 
+      number_person_max, number_total, number_used, 
+      status, status_str, type, 
+      date_add)
+    values (#{id,jdbcType=INTEGER}, #{dateEndDays,jdbcType=INTEGER}, #{dateEndType,jdbcType=INTEGER}, 
+      #{dateStartType,jdbcType=INTEGER}, #{moneyHreshold,jdbcType=INTEGER}, #{moneyMax,jdbcType=DOUBLE}, 
+      #{moneyMin,jdbcType=DOUBLE}, #{name,jdbcType=VARCHAR}, #{needscore,jdbcType=INTEGER}, 
+      #{numberGitNumber,jdbcType=INTEGER}, #{numberGit,jdbcType=INTEGER}, #{numberLeft,jdbcType=INTEGER}, 
+      #{numberPersonMax,jdbcType=INTEGER}, #{numberTotal,jdbcType=INTEGER}, #{numberUsed,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{statusStr,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+      #{dateAdd,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="org.web.emall.models.Coupons">
+    insert into coupons
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="dateEndDays != null">
+        date_end_days,
+      </if>
+      <if test="dateEndType != null">
+        date_end_type,
+      </if>
+      <if test="dateStartType != null">
+        date_start_type,
+      </if>
+      <if test="moneyHreshold != null">
+        money_hreshold,
+      </if>
+      <if test="moneyMax != null">
+        money_max,
+      </if>
+      <if test="moneyMin != null">
+        money_min,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="needscore != null">
+        needScore,
+      </if>
+      <if test="numberGitNumber != null">
+        number_git_number,
+      </if>
+      <if test="numberGit != null">
+        number_git,
+      </if>
+      <if test="numberLeft != null">
+        number_left,
+      </if>
+      <if test="numberPersonMax != null">
+        number_person_max,
+      </if>
+      <if test="numberTotal != null">
+        number_total,
+      </if>
+      <if test="numberUsed != null">
+        number_used,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="statusStr != null">
+        status_str,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="dateAdd != null">
+        date_add,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="dateEndDays != null">
+        #{dateEndDays,jdbcType=INTEGER},
+      </if>
+      <if test="dateEndType != null">
+        #{dateEndType,jdbcType=INTEGER},
+      </if>
+      <if test="dateStartType != null">
+        #{dateStartType,jdbcType=INTEGER},
+      </if>
+      <if test="moneyHreshold != null">
+        #{moneyHreshold,jdbcType=INTEGER},
+      </if>
+      <if test="moneyMax != null">
+        #{moneyMax,jdbcType=DOUBLE},
+      </if>
+      <if test="moneyMin != null">
+        #{moneyMin,jdbcType=DOUBLE},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="needscore != null">
+        #{needscore,jdbcType=INTEGER},
+      </if>
+      <if test="numberGitNumber != null">
+        #{numberGitNumber,jdbcType=INTEGER},
+      </if>
+      <if test="numberGit != null">
+        #{numberGit,jdbcType=INTEGER},
+      </if>
+      <if test="numberLeft != null">
+        #{numberLeft,jdbcType=INTEGER},
+      </if>
+      <if test="numberPersonMax != null">
+        #{numberPersonMax,jdbcType=INTEGER},
+      </if>
+      <if test="numberTotal != null">
+        #{numberTotal,jdbcType=INTEGER},
+      </if>
+      <if test="numberUsed != null">
+        #{numberUsed,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="statusStr != null">
+        #{statusStr,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="dateAdd != null">
+        #{dateAdd,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.web.emall.models.CouponsExample" resultType="java.lang.Long">
+    select count(*) from coupons
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update coupons
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.dateEndDays != null">
+        date_end_days = #{record.dateEndDays,jdbcType=INTEGER},
+      </if>
+      <if test="record.dateEndType != null">
+        date_end_type = #{record.dateEndType,jdbcType=INTEGER},
+      </if>
+      <if test="record.dateStartType != null">
+        date_start_type = #{record.dateStartType,jdbcType=INTEGER},
+      </if>
+      <if test="record.moneyHreshold != null">
+        money_hreshold = #{record.moneyHreshold,jdbcType=INTEGER},
+      </if>
+      <if test="record.moneyMax != null">
+        money_max = #{record.moneyMax,jdbcType=DOUBLE},
+      </if>
+      <if test="record.moneyMin != null">
+        money_min = #{record.moneyMin,jdbcType=DOUBLE},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.needscore != null">
+        needScore = #{record.needscore,jdbcType=INTEGER},
+      </if>
+      <if test="record.numberGitNumber != null">
+        number_git_number = #{record.numberGitNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.numberGit != null">
+        number_git = #{record.numberGit,jdbcType=INTEGER},
+      </if>
+      <if test="record.numberLeft != null">
+        number_left = #{record.numberLeft,jdbcType=INTEGER},
+      </if>
+      <if test="record.numberPersonMax != null">
+        number_person_max = #{record.numberPersonMax,jdbcType=INTEGER},
+      </if>
+      <if test="record.numberTotal != null">
+        number_total = #{record.numberTotal,jdbcType=INTEGER},
+      </if>
+      <if test="record.numberUsed != null">
+        number_used = #{record.numberUsed,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.statusStr != null">
+        status_str = #{record.statusStr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null">
+        type = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dateAdd != null">
+        date_add = #{record.dateAdd,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update coupons
+    set id = #{record.id,jdbcType=INTEGER},
+      date_end_days = #{record.dateEndDays,jdbcType=INTEGER},
+      date_end_type = #{record.dateEndType,jdbcType=INTEGER},
+      date_start_type = #{record.dateStartType,jdbcType=INTEGER},
+      money_hreshold = #{record.moneyHreshold,jdbcType=INTEGER},
+      money_max = #{record.moneyMax,jdbcType=DOUBLE},
+      money_min = #{record.moneyMin,jdbcType=DOUBLE},
+      name = #{record.name,jdbcType=VARCHAR},
+      needScore = #{record.needscore,jdbcType=INTEGER},
+      number_git_number = #{record.numberGitNumber,jdbcType=INTEGER},
+      number_git = #{record.numberGit,jdbcType=INTEGER},
+      number_left = #{record.numberLeft,jdbcType=INTEGER},
+      number_person_max = #{record.numberPersonMax,jdbcType=INTEGER},
+      number_total = #{record.numberTotal,jdbcType=INTEGER},
+      number_used = #{record.numberUsed,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      status_str = #{record.statusStr,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=VARCHAR},
+      date_add = #{record.dateAdd,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.web.emall.models.Coupons">
+    update coupons
+    <set>
+      <if test="dateEndDays != null">
+        date_end_days = #{dateEndDays,jdbcType=INTEGER},
+      </if>
+      <if test="dateEndType != null">
+        date_end_type = #{dateEndType,jdbcType=INTEGER},
+      </if>
+      <if test="dateStartType != null">
+        date_start_type = #{dateStartType,jdbcType=INTEGER},
+      </if>
+      <if test="moneyHreshold != null">
+        money_hreshold = #{moneyHreshold,jdbcType=INTEGER},
+      </if>
+      <if test="moneyMax != null">
+        money_max = #{moneyMax,jdbcType=DOUBLE},
+      </if>
+      <if test="moneyMin != null">
+        money_min = #{moneyMin,jdbcType=DOUBLE},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="needscore != null">
+        needScore = #{needscore,jdbcType=INTEGER},
+      </if>
+      <if test="numberGitNumber != null">
+        number_git_number = #{numberGitNumber,jdbcType=INTEGER},
+      </if>
+      <if test="numberGit != null">
+        number_git = #{numberGit,jdbcType=INTEGER},
+      </if>
+      <if test="numberLeft != null">
+        number_left = #{numberLeft,jdbcType=INTEGER},
+      </if>
+      <if test="numberPersonMax != null">
+        number_person_max = #{numberPersonMax,jdbcType=INTEGER},
+      </if>
+      <if test="numberTotal != null">
+        number_total = #{numberTotal,jdbcType=INTEGER},
+      </if>
+      <if test="numberUsed != null">
+        number_used = #{numberUsed,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="statusStr != null">
+        status_str = #{statusStr,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="dateAdd != null">
+        date_add = #{dateAdd,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.web.emall.models.Coupons">
+    update coupons
+    set date_end_days = #{dateEndDays,jdbcType=INTEGER},
+      date_end_type = #{dateEndType,jdbcType=INTEGER},
+      date_start_type = #{dateStartType,jdbcType=INTEGER},
+      money_hreshold = #{moneyHreshold,jdbcType=INTEGER},
+      money_max = #{moneyMax,jdbcType=DOUBLE},
+      money_min = #{moneyMin,jdbcType=DOUBLE},
+      name = #{name,jdbcType=VARCHAR},
+      needScore = #{needscore,jdbcType=INTEGER},
+      number_git_number = #{numberGitNumber,jdbcType=INTEGER},
+      number_git = #{numberGit,jdbcType=INTEGER},
+      number_left = #{numberLeft,jdbcType=INTEGER},
+      number_person_max = #{numberPersonMax,jdbcType=INTEGER},
+      number_total = #{numberTotal,jdbcType=INTEGER},
+      number_used = #{numberUsed,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      status_str = #{statusStr,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      date_add = #{dateAdd,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

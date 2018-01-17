@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<!-- 配置插件、配置settings -->
+	<settings>
+		<!-- 打开延迟加载 -->
+		<setting name="lazyLoadingEnabled" value="false" />
+		<!-- 将积极加载改为消极加载即按需加载 -->
+		<setting name="aggressiveLazyLoading" value="false" />
+		<!--启用全局的二级缓存 -->
+		<setting name="cacheEnabled" value="true" />
+		<!--启用驼峰命名法： user_name userName select * from user -->
+		<setting name="mapUnderscoreToCamelCase" value="true" />
+	</settings>
+
+	<plugins>
+		<plugin interceptor="com.github.pagehelper.PageInterceptor">
+			<!-- 分页合理化 -->
+			<property name="reasonable" value="true" />
+		</plugin>
+	</plugins>
+
+</configuration>

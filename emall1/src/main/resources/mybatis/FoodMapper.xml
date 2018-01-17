@@ -1,0 +1,596 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.web.emall.mappers.FoodMapper">
+  <resultMap id="BaseResultMap" type="org.web.emall.models.Food">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="bar_code" jdbcType="VARCHAR" property="barCode" />
+    <result column="category_id" jdbcType="INTEGER" property="categoryId" />
+    <result column="characteristic" jdbcType="VARCHAR" property="characteristic" />
+    <result column="commission" jdbcType="DOUBLE" property="commission" />
+    <result column="commission_type" jdbcType="INTEGER" property="commissionType" />
+    <result column="date_add" jdbcType="TIMESTAMP" property="dateAdd" />
+    <result column="date_start" jdbcType="TIMESTAMP" property="dateStart" />
+    <result column="date_update" jdbcType="TIMESTAMP" property="dateUpdate" />
+    <result column="logistics_id" jdbcType="INTEGER" property="logisticsId" />
+    <result column="min_price" jdbcType="DOUBLE" property="minPrice" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="number_fav" jdbcType="INTEGER" property="numberFav" />
+    <result column="number_good_reputation" jdbcType="INTEGER" property="numberGoodReputation" />
+    <result column="number_orders" jdbcType="INTEGER" property="numberOrders" />
+    <result column="original_price" jdbcType="DOUBLE" property="originalPrice" />
+    <result column="paixu" jdbcType="INTEGER" property="paixu" />
+    <result column="pic" jdbcType="VARCHAR" property="pic" />
+    <result column="property_ids" jdbcType="VARCHAR" property="propertyIds" />
+    <result column="recommend_status" jdbcType="INTEGER" property="recommendStatus" />
+    <result column="recommend_status_str" jdbcType="VARCHAR" property="recommendStatusStr" />
+    <result column="shop_id" jdbcType="INTEGER" property="shopId" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="status_str" jdbcType="VARCHAR" property="statusStr" />
+    <result column="stores" jdbcType="INTEGER" property="stores" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="views" jdbcType="INTEGER" property="views" />
+    <result column="weight" jdbcType="DOUBLE" property="weight" />
+    <result column="icon" jdbcType="VARCHAR" property="icon" />
+  </resultMap>
+
+  <select id="selectFoodById" resultMap="BaseResultMap" parameterType="int">
+    SELECT  * FROM food where id = #{food_id}
+  </select>
+
+
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, bar_code, category_id, characteristic, commission, commission_type, date_add, 
+    date_start, date_update, logistics_id, min_price, name, number_fav, number_good_reputation, 
+    number_orders, original_price, paixu, pic, property_ids, recommend_status, recommend_status_str, 
+    shop_id, status, status_str, stores, user_id, views, weight, icon
+  </sql>
+  <select id="selectByExample" parameterType="org.web.emall.models.FoodExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from food
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from food
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from food
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.web.emall.models.FoodExample">
+    delete from food
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.web.emall.models.Food">
+    insert into food (id, bar_code, category_id, 
+      characteristic, commission, commission_type, 
+      date_add, date_start, date_update, 
+      logistics_id, min_price, name, 
+      number_fav, number_good_reputation, number_orders, 
+      original_price, paixu, pic, 
+      property_ids, recommend_status, recommend_status_str, 
+      shop_id, status, status_str, 
+      stores, user_id, views, 
+      weight, icon)
+    values (#{id,jdbcType=INTEGER}, #{barCode,jdbcType=VARCHAR}, #{categoryId,jdbcType=INTEGER}, 
+      #{characteristic,jdbcType=VARCHAR}, #{commission,jdbcType=DOUBLE}, #{commissionType,jdbcType=INTEGER}, 
+      #{dateAdd,jdbcType=TIMESTAMP}, #{dateStart,jdbcType=TIMESTAMP}, #{dateUpdate,jdbcType=TIMESTAMP}, 
+      #{logisticsId,jdbcType=INTEGER}, #{minPrice,jdbcType=DOUBLE}, #{name,jdbcType=VARCHAR}, 
+      #{numberFav,jdbcType=INTEGER}, #{numberGoodReputation,jdbcType=INTEGER}, #{numberOrders,jdbcType=INTEGER}, 
+      #{originalPrice,jdbcType=DOUBLE}, #{paixu,jdbcType=INTEGER}, #{pic,jdbcType=VARCHAR}, 
+      #{propertyIds,jdbcType=VARCHAR}, #{recommendStatus,jdbcType=INTEGER}, #{recommendStatusStr,jdbcType=VARCHAR}, 
+      #{shopId,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{statusStr,jdbcType=VARCHAR}, 
+      #{stores,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{views,jdbcType=INTEGER}, 
+      #{weight,jdbcType=DOUBLE}, #{icon,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.web.emall.models.Food">
+    insert into food
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="barCode != null">
+        bar_code,
+      </if>
+      <if test="categoryId != null">
+        category_id,
+      </if>
+      <if test="characteristic != null">
+        characteristic,
+      </if>
+      <if test="commission != null">
+        commission,
+      </if>
+      <if test="commissionType != null">
+        commission_type,
+      </if>
+      <if test="dateAdd != null">
+        date_add,
+      </if>
+      <if test="dateStart != null">
+        date_start,
+      </if>
+      <if test="dateUpdate != null">
+        date_update,
+      </if>
+      <if test="logisticsId != null">
+        logistics_id,
+      </if>
+      <if test="minPrice != null">
+        min_price,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="numberFav != null">
+        number_fav,
+      </if>
+      <if test="numberGoodReputation != null">
+        number_good_reputation,
+      </if>
+      <if test="numberOrders != null">
+        number_orders,
+      </if>
+      <if test="originalPrice != null">
+        original_price,
+      </if>
+      <if test="paixu != null">
+        paixu,
+      </if>
+      <if test="pic != null">
+        pic,
+      </if>
+      <if test="propertyIds != null">
+        property_ids,
+      </if>
+      <if test="recommendStatus != null">
+        recommend_status,
+      </if>
+      <if test="recommendStatusStr != null">
+        recommend_status_str,
+      </if>
+      <if test="shopId != null">
+        shop_id,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="statusStr != null">
+        status_str,
+      </if>
+      <if test="stores != null">
+        stores,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="views != null">
+        views,
+      </if>
+      <if test="weight != null">
+        weight,
+      </if>
+      <if test="icon != null">
+        icon,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="barCode != null">
+        #{barCode,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryId != null">
+        #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="characteristic != null">
+        #{characteristic,jdbcType=VARCHAR},
+      </if>
+      <if test="commission != null">
+        #{commission,jdbcType=DOUBLE},
+      </if>
+      <if test="commissionType != null">
+        #{commissionType,jdbcType=INTEGER},
+      </if>
+      <if test="dateAdd != null">
+        #{dateAdd,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dateStart != null">
+        #{dateStart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dateUpdate != null">
+        #{dateUpdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logisticsId != null">
+        #{logisticsId,jdbcType=INTEGER},
+      </if>
+      <if test="minPrice != null">
+        #{minPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="numberFav != null">
+        #{numberFav,jdbcType=INTEGER},
+      </if>
+      <if test="numberGoodReputation != null">
+        #{numberGoodReputation,jdbcType=INTEGER},
+      </if>
+      <if test="numberOrders != null">
+        #{numberOrders,jdbcType=INTEGER},
+      </if>
+      <if test="originalPrice != null">
+        #{originalPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="paixu != null">
+        #{paixu,jdbcType=INTEGER},
+      </if>
+      <if test="pic != null">
+        #{pic,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyIds != null">
+        #{propertyIds,jdbcType=VARCHAR},
+      </if>
+      <if test="recommendStatus != null">
+        #{recommendStatus,jdbcType=INTEGER},
+      </if>
+      <if test="recommendStatusStr != null">
+        #{recommendStatusStr,jdbcType=VARCHAR},
+      </if>
+      <if test="shopId != null">
+        #{shopId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="statusStr != null">
+        #{statusStr,jdbcType=VARCHAR},
+      </if>
+      <if test="stores != null">
+        #{stores,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="views != null">
+        #{views,jdbcType=INTEGER},
+      </if>
+      <if test="weight != null">
+        #{weight,jdbcType=DOUBLE},
+      </if>
+      <if test="icon != null">
+        #{icon,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.web.emall.models.FoodExample" resultType="java.lang.Long">
+    select count(*) from food
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update food
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.barCode != null">
+        bar_code = #{record.barCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.categoryId != null">
+        category_id = #{record.categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="record.characteristic != null">
+        characteristic = #{record.characteristic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.commission != null">
+        commission = #{record.commission,jdbcType=DOUBLE},
+      </if>
+      <if test="record.commissionType != null">
+        commission_type = #{record.commissionType,jdbcType=INTEGER},
+      </if>
+      <if test="record.dateAdd != null">
+        date_add = #{record.dateAdd,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.dateStart != null">
+        date_start = #{record.dateStart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.dateUpdate != null">
+        date_update = #{record.dateUpdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.logisticsId != null">
+        logistics_id = #{record.logisticsId,jdbcType=INTEGER},
+      </if>
+      <if test="record.minPrice != null">
+        min_price = #{record.minPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.numberFav != null">
+        number_fav = #{record.numberFav,jdbcType=INTEGER},
+      </if>
+      <if test="record.numberGoodReputation != null">
+        number_good_reputation = #{record.numberGoodReputation,jdbcType=INTEGER},
+      </if>
+      <if test="record.numberOrders != null">
+        number_orders = #{record.numberOrders,jdbcType=INTEGER},
+      </if>
+      <if test="record.originalPrice != null">
+        original_price = #{record.originalPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.paixu != null">
+        paixu = #{record.paixu,jdbcType=INTEGER},
+      </if>
+      <if test="record.pic != null">
+        pic = #{record.pic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.propertyIds != null">
+        property_ids = #{record.propertyIds,jdbcType=VARCHAR},
+      </if>
+      <if test="record.recommendStatus != null">
+        recommend_status = #{record.recommendStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.recommendStatusStr != null">
+        recommend_status_str = #{record.recommendStatusStr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shopId != null">
+        shop_id = #{record.shopId,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.statusStr != null">
+        status_str = #{record.statusStr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stores != null">
+        stores = #{record.stores,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.views != null">
+        views = #{record.views,jdbcType=INTEGER},
+      </if>
+      <if test="record.weight != null">
+        weight = #{record.weight,jdbcType=DOUBLE},
+      </if>
+      <if test="record.icon != null">
+        icon = #{record.icon,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update food
+    set id = #{record.id,jdbcType=INTEGER},
+      bar_code = #{record.barCode,jdbcType=VARCHAR},
+      category_id = #{record.categoryId,jdbcType=INTEGER},
+      characteristic = #{record.characteristic,jdbcType=VARCHAR},
+      commission = #{record.commission,jdbcType=DOUBLE},
+      commission_type = #{record.commissionType,jdbcType=INTEGER},
+      date_add = #{record.dateAdd,jdbcType=TIMESTAMP},
+      date_start = #{record.dateStart,jdbcType=TIMESTAMP},
+      date_update = #{record.dateUpdate,jdbcType=TIMESTAMP},
+      logistics_id = #{record.logisticsId,jdbcType=INTEGER},
+      min_price = #{record.minPrice,jdbcType=DOUBLE},
+      name = #{record.name,jdbcType=VARCHAR},
+      number_fav = #{record.numberFav,jdbcType=INTEGER},
+      number_good_reputation = #{record.numberGoodReputation,jdbcType=INTEGER},
+      number_orders = #{record.numberOrders,jdbcType=INTEGER},
+      original_price = #{record.originalPrice,jdbcType=DOUBLE},
+      paixu = #{record.paixu,jdbcType=INTEGER},
+      pic = #{record.pic,jdbcType=VARCHAR},
+      property_ids = #{record.propertyIds,jdbcType=VARCHAR},
+      recommend_status = #{record.recommendStatus,jdbcType=INTEGER},
+      recommend_status_str = #{record.recommendStatusStr,jdbcType=VARCHAR},
+      shop_id = #{record.shopId,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      status_str = #{record.statusStr,jdbcType=VARCHAR},
+      stores = #{record.stores,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      views = #{record.views,jdbcType=INTEGER},
+      weight = #{record.weight,jdbcType=DOUBLE},
+      icon = #{record.icon,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.web.emall.models.Food">
+    update food
+    <set>
+      <if test="barCode != null">
+        bar_code = #{barCode,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryId != null">
+        category_id = #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="characteristic != null">
+        characteristic = #{characteristic,jdbcType=VARCHAR},
+      </if>
+      <if test="commission != null">
+        commission = #{commission,jdbcType=DOUBLE},
+      </if>
+      <if test="commissionType != null">
+        commission_type = #{commissionType,jdbcType=INTEGER},
+      </if>
+      <if test="dateAdd != null">
+        date_add = #{dateAdd,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dateStart != null">
+        date_start = #{dateStart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dateUpdate != null">
+        date_update = #{dateUpdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logisticsId != null">
+        logistics_id = #{logisticsId,jdbcType=INTEGER},
+      </if>
+      <if test="minPrice != null">
+        min_price = #{minPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="numberFav != null">
+        number_fav = #{numberFav,jdbcType=INTEGER},
+      </if>
+      <if test="numberGoodReputation != null">
+        number_good_reputation = #{numberGoodReputation,jdbcType=INTEGER},
+      </if>
+      <if test="numberOrders != null">
+        number_orders = #{numberOrders,jdbcType=INTEGER},
+      </if>
+      <if test="originalPrice != null">
+        original_price = #{originalPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="paixu != null">
+        paixu = #{paixu,jdbcType=INTEGER},
+      </if>
+      <if test="pic != null">
+        pic = #{pic,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyIds != null">
+        property_ids = #{propertyIds,jdbcType=VARCHAR},
+      </if>
+      <if test="recommendStatus != null">
+        recommend_status = #{recommendStatus,jdbcType=INTEGER},
+      </if>
+      <if test="recommendStatusStr != null">
+        recommend_status_str = #{recommendStatusStr,jdbcType=VARCHAR},
+      </if>
+      <if test="shopId != null">
+        shop_id = #{shopId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="statusStr != null">
+        status_str = #{statusStr,jdbcType=VARCHAR},
+      </if>
+      <if test="stores != null">
+        stores = #{stores,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="views != null">
+        views = #{views,jdbcType=INTEGER},
+      </if>
+      <if test="weight != null">
+        weight = #{weight,jdbcType=DOUBLE},
+      </if>
+      <if test="icon != null">
+        icon = #{icon,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.web.emall.models.Food">
+    update food
+    set bar_code = #{barCode,jdbcType=VARCHAR},
+      category_id = #{categoryId,jdbcType=INTEGER},
+      characteristic = #{characteristic,jdbcType=VARCHAR},
+      commission = #{commission,jdbcType=DOUBLE},
+      commission_type = #{commissionType,jdbcType=INTEGER},
+      date_add = #{dateAdd,jdbcType=TIMESTAMP},
+      date_start = #{dateStart,jdbcType=TIMESTAMP},
+      date_update = #{dateUpdate,jdbcType=TIMESTAMP},
+      logistics_id = #{logisticsId,jdbcType=INTEGER},
+      min_price = #{minPrice,jdbcType=DOUBLE},
+      name = #{name,jdbcType=VARCHAR},
+      number_fav = #{numberFav,jdbcType=INTEGER},
+      number_good_reputation = #{numberGoodReputation,jdbcType=INTEGER},
+      number_orders = #{numberOrders,jdbcType=INTEGER},
+      original_price = #{originalPrice,jdbcType=DOUBLE},
+      paixu = #{paixu,jdbcType=INTEGER},
+      pic = #{pic,jdbcType=VARCHAR},
+      property_ids = #{propertyIds,jdbcType=VARCHAR},
+      recommend_status = #{recommendStatus,jdbcType=INTEGER},
+      recommend_status_str = #{recommendStatusStr,jdbcType=VARCHAR},
+      shop_id = #{shopId,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      status_str = #{statusStr,jdbcType=VARCHAR},
+      stores = #{stores,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      views = #{views,jdbcType=INTEGER},
+      weight = #{weight,jdbcType=DOUBLE},
+      icon = #{icon,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
