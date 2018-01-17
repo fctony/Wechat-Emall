@@ -18,7 +18,7 @@ public class BaseInfoController {
     @GetMapping("/config/get-value")
     public ResponseModel getBaseInfo(String key) {
         ConfigModel  cm = new ConfigModel(1,new Date(),0,key,"商城名称",new Date(),51
-                ,"汤本味");
+                ,"汤原味");
       return new ResponseModel(0,cm,"success");
     }
 }
