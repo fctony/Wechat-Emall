@@ -12,7 +12,7 @@
 
 5.打开微信小程序刷新，可以看到效果图:
 
-![首页](https://github.com/fctony/Wechat-Emall/blob/master/emall/images/Home.jpg)
-![购买](https://github.com/fctony/Wechat-Emall/blob/master/emall/images/Buylist.jpg)
-![购物车](https://github.com/fctony/Wechat-Emall/blob/master/emall/images/Car.jpg)
-![我的](https://github.com/fctony/Wechat-Emall/blob/master/emall/images/my.jpg)
+![](https://github.com/fctony/Wechat-Emall/blob/master/emall/images/Home.jpg)
+![](https://github.com/fctony/Wechat-Emall/blob/master/emall/images/Buylist.jpg)
+![](https://github.com/fctony/Wechat-Emall/blob/master/emall/images/Car.jpg)
+![](https://github.com/fctony/Wechat-Emall/blob/master/emall/images/my.jpg)
